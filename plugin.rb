@@ -51,6 +51,10 @@ module ::GithubBadges
       if user
         if commits < 25
           BadgeGranter.grant(bronze, user)
+          if user.title.blank?
+            user.title = bronze.name
+            user.save
+          end
         elsif commits < 250
           BadgeGranter.grant(silver, user)
           if user.title.blank?
