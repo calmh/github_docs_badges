@@ -11,19 +11,19 @@ module ::GithubBadges
     # ensure badges exist
     unless bronze = Badge.find_by(name: 'Contributor')
       bronze = Badge.create!(name: 'Contributor',
-                             description: 'contributed an accepted pull request',
+                             description: 'Contributed a commit',
                              badge_type_id: 3)
     end
 
     unless silver = Badge.find_by(name: 'Great contributor')
       silver = Badge.create!(name: 'Great contributor',
-                             description: 'contributed 25 accepted pull request',
+                             description: 'Contributed 25 commits',
                              badge_type_id: 2)
     end
 
     unless gold = Badge.find_by(name: 'Amazing contributor')
       gold = Badge.create!(name: 'Amazing contributor',
-                             description: 'contributed 250 accepted pull request',
+                             description: 'Contributed 250 commits',
                              badge_type_id: 1)
     end
 
@@ -37,11 +37,11 @@ module ::GithubBadges
       Rails.logger.info `cd #{path} && git pull`
     end
 
-    `cd #{path} && git log --merges --pretty=format:%p --grep='Merge pull request'`.each_line do |m|
-      emails << (`cd #{path} && git log -1 --format=%ce #{m.split(' ')[1].strip}`.strip)
+    `cd #{path} && git log --pretty=format:%ae`.each_line do |m|
+      emails << m.strip
     end
 
-    email_commits = emails.group_by{|e| e}.map{|k, l|[k,l.count]}
+    email_commits = emails.group_by{|e| e}.map{|k, l|[k, l.count]}
 
     Rails.logger.info "#{email_commits.length} commits found!"
 
