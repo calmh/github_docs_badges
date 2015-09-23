@@ -1,4 +1,4 @@
-# name: GitHub badges
+# name: GitHub docs badges
 # about: Assign users badges based on GitHub contributions
 # version: 0.1
 # authors: Sam Saffron
