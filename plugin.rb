@@ -6,24 +6,24 @@
 module ::GithubBadges
   def self.badge_grant!
 
-    return unless SiteSetting.github_badges_repo.present?
+    return unless SiteSetting.github_docs_badges_repo.present?
 
     # ensure badges exist
-    unless bronze = Badge.find_by(name: 'Contributor')
-      bronze = Badge.create!(name: 'Contributor',
-                             description: 'Contributed a commit',
+    unless bronze = Badge.find_by(name: 'Scribe')
+      bronze = Badge.create!(name: 'Scribe',
+                             description: 'Contributed to the documentation',
                              badge_type_id: 3)
     end
 
-    unless silver = Badge.find_by(name: 'Great contributor')
-      silver = Badge.create!(name: 'Great contributor',
-                             description: 'Contributed 25 commits',
+    unless silver = Badge.find_by(name: 'Great Scribe')
+      silver = Badge.create!(name: 'Great Scribe',
+                             description: 'Contributed 25 commits to the documentation',
                              badge_type_id: 2)
     end
 
-    unless gold = Badge.find_by(name: 'Amazing contributor')
-      gold = Badge.create!(name: 'Amazing contributor',
-                             description: 'Contributed 250 commits',
+    unless gold = Badge.find_by(name: 'Amazing Scribe')
+      gold = Badge.create!(name: 'Amazing Scribe',
+                             description: 'Contributed 250 commits to the documentation',
                              badge_type_id: 1)
     end
 
@@ -32,7 +32,7 @@ module ::GithubBadges
     path = '/tmp/github_badges'
 
     if !Dir.exists?(path)
-      Rails.logger.info `cd /tmp && git clone #{SiteSetting.github_badges_repo} github_badges`
+      Rails.logger.info `cd /tmp && git clone #{SiteSetting.github_docs_badges_repo} github_badges`
     else
       Rails.logger.info `cd #{path} && git pull`
     end
