@@ -3,7 +3,7 @@
 # version: 0.1
 # authors: Sam Saffron
 
-module ::GithubBadges
+module ::GithubDocsBadges
   def self.badge_grant!
 
     return unless SiteSetting.github_docs_badges_repo.present?
@@ -76,12 +76,12 @@ module ::GithubBadges
 end
 
 after_initialize do
-  module ::GithubBadges
+  module ::GithubDocsBadges
     class UpdateJob < ::Jobs::Scheduled
       every 1.day
 
       def execute(args)
-        GithubBadges.badge_grant!
+        GithubDocsBadges.badge_grant!
       end
     end
   end
