@@ -29,10 +29,10 @@ module ::GithubBadges
 
     emails = []
 
-    path = '/tmp/github_badges'
+    path = '/tmp/github_docs_badges'
 
     if !Dir.exists?(path)
-      Rails.logger.info `cd /tmp && git clone #{SiteSetting.github_docs_badges_repo} github_badges`
+      Rails.logger.info `cd /tmp && git clone #{SiteSetting.github_docs_badges_repo} github_docs_badges`
     else
       Rails.logger.info `cd #{path} && git pull`
     end
