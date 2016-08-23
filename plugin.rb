@@ -51,22 +51,10 @@ module ::GithubDocsBadges
       if user
         if commits < 25
           BadgeGranter.grant(bronze, user)
-          if user.title.blank?
-            user.title = bronze.name
-            user.save
-          end
         elsif commits < 250
           BadgeGranter.grant(silver, user)
-          if user.title.blank? or user.title == bronze.name
-            user.title = silver.name
-            user.save
-          end
         else
           BadgeGranter.grant(gold, user)
-          if user.title.blank? or user.title == bronze.name or user.title == silver.name
-            user.title = gold.name
-            user.save
-          end
         end
       end
 
